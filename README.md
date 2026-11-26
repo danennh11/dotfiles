@@ -77,6 +77,7 @@ from it would fight the palette, so I skip those.
 | `Super + Shift + F` | Command Deck |
 | `Super + C` | calendar + todo panel (Quickshell, `qs-calendar`) |
 | `Super + X` | Now Playing + equaliser panel |
+| `Super + J` | Spotify (focuses it if already open) |
 | `Super + D` | maximise (keeps bar and gaps) |
 | `Super + Z` | ZapFast (WhatsApp) |
 
@@ -162,7 +163,7 @@ home/               mirror of $HOME
   .config/fastfetch/deck*          deck fastfetch + logos
   .config/btop/deck.conf           deck btop
   .config/qs-calendar/             calendar / media panels
-  .local/bin/                      ryoku-deck, theme generator, calendar-panel
+  .local/bin/                      ryoku-deck, theme generator, calendar-panel, ryoku-spotify
 rice/nend/          the Ryoku rice
 ryostore/           mini RyoStore catalogue holding the Deck notification card
 scripts/            scrub-rice.py (strips IP/location from the rice)

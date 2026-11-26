@@ -1,0 +1,8 @@
+#!/bin/sh
+# Super+J: focus Spotify if it is already open, otherwise start it.
+# spotify-launcher keeps Spotify updated; after an update, run
+# `spicetify backup apply` once to bring the palette colours back.
+if pgrep -x spotify >/dev/null 2>&1; then
+    exec hyprctl dispatch 'hl.dsp.focus({ window = "class:^([Ss]potify)$" })' >/dev/null
+fi
+exec spotify-launcher

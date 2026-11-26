@@ -24,3 +24,4 @@ copy .config/ryoku/user_edits/hypr/scripts/ryoku-workspace
 copy .config/ryoku/user_edits/qt6ct/qt6ct.conf
 copy .config/ryoku/user_edits/matugen/templates/starship-colors.toml
 copy .config/ryoku/user_edits/matugen/templates/zed.json
+.local/bin/ryoku-spotify
