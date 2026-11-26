@@ -1,6 +1,6 @@
 <div align="center">
 
-# 力 nend's Ryoku dotfiles
+# nend's Ryoku dotfiles
 
 **Arch Linux · Hyprland · Quickshell · one blue palette, everywhere**
 
