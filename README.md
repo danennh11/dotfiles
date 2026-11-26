@@ -62,6 +62,12 @@ translucent with Hyprland's blur behind it and selections, the active tab and
 search matches use the same dark blue as the prompt pill. Font and every other
 Zed setting are untouched.
 
+### Spotify
+
+Spicetify with Ryoku's palette bridge: Spotify's own colour variables are
+repainted live from the wallpaper palette, so it sits in the same navy and
+blue as everything else, with no Spicetify theme on top.
+
 ### Panels and keybinds
 
 | Key | Action |
@@ -114,7 +120,11 @@ cd ~/dotfiles
 4. sets the starship pill layout with wallpaper colours
 5. imports the `nend` rice and asks before applying it
 6. installs the Deck notification card from `ryostore/`
-7. reloads Hyprland
+7. asks to patch Spotify with Spicetify and Ryoku's palette bridge
+8. reloads Hyprland
+
+After a Spotify update, run `spicetify backup apply` again; the update
+replaces the patched files.
 
 One step stays manual because Ryoku has no command for it: pick **Deck** in
 Settings › Overlays › Notifications.
