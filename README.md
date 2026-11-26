@@ -92,6 +92,12 @@ from it would fight the palette, so I skip those.
 | `Super + D` | maximise (keeps bar and gaps) |
 | `Super + Z` | ZapFast (WhatsApp) |
 
+### Bar
+
+Ryoku's QS Bar, floated: split into pill islands with a gap from the screen
+edge, rounded corners, frosted blur, a thin border and a soft shadow. Same
+widgets as stock. It travels inside the rice.
+
 ### The look
 
 ![Wallpaper](rice/nend/preview.png)
@@ -132,16 +138,17 @@ cd ~/dotfiles
    anything already there to `~/.dotfiles-backup/<time>/`
 3. copies the Ryoku overlay files and runs `ryoku materialize`
 4. sets the starship pill layout with wallpaper colours
-5. imports the `nend` rice and asks before applying it
-6. installs the Deck notification card and launcher from `ryostore/`
+5. installs the Deck notification card and launcher from `ryostore/`
+6. imports the `nend` rice and asks before applying it (the rice picks the
+   Deck card and launcher, and the floating bar)
 7. asks to patch Spotify with Spicetify and Ryoku's palette bridge
 8. reloads Hyprland
 
 After a Spotify update, run `spicetify backup apply` again; the update
 replaces the patched files.
 
-Two steps stay manual because Ryoku has no command for them: pick **Deck** in
-Settings › Overlays › Notifications and in Settings › App Launcher.
+If you skip applying the rice, pick **Deck** yourself in Settings › Overlays ›
+Notifications and in Settings › App Launcher; Ryoku has no command for those.
 
 `user.lua` also opens Brave, ZapFast and Vesktop on login. Remove those lines
 if you don't use them.

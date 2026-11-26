@@ -156,23 +156,22 @@ cmd_install() {
     run ryoku-hub starship set pill
     run ryoku-hub starship palette wallpaper
 
-    say "5/8 Ryoku look (rice '$RICE_NAME')"
+    say "5/8 Deck notification card and launcher (from the mini catalogue in ryostore/)"
+    # RYOSTORE_BASE points the Store at this repo for this one install only;
+    # the Store keeps tracking the official catalogue afterwards.
+    run env RYOSTORE_BASE="file://$REPO/ryostore" ryostore install notifications deck
+    run env RYOSTORE_BASE="file://$REPO/ryostore" ryostore install launchers deck
+    # installed before the rice, whose settings pick both of them
+
+    say "6/8 Ryoku look (rice '$RICE_NAME')"
     if [ -d "$REPO/rice/$RICE_NAME" ]; then
         run ryoku-hub rice import "$REPO/rice/$RICE_NAME"
-        if ask "apply rice '$RICE_NAME' now (bar, theme, launcher, wallpaper)?"; then
+        if ask "apply rice '$RICE_NAME' now (bar, theme, launcher, notifications, wallpaper)?"; then
             run ryoku-hub rice apply "$RICE_NAME"
         fi
     else
         warn "no rice/$RICE_NAME in repo yet; run ./dot rice on the source machine"
     fi
-
-    say "6/8 Deck notification card and launcher (from the mini catalogue in ryostore/)"
-    # RYOSTORE_BASE points the Store at this repo for this one install only;
-    # the Store keeps tracking the official catalogue afterwards.
-    run env RYOSTORE_BASE="file://$REPO/ryostore" ryostore install notifications deck
-    run env RYOSTORE_BASE="file://$REPO/ryostore" ryostore install launchers deck
-    echo "    Pick them in Settings > Overlays > Notifications and Settings > App Launcher"
-    echo "    (Ryoku has no command for either)."
 
     say "7/8 Spotify colours (Spicetify + Ryoku palette bridge, optional)"
     if command -v spicetify >/dev/null && command -v spotify-launcher >/dev/null; then
@@ -200,8 +199,8 @@ cmd_install() {
 
     say "done. Backups of replaced files: ~/.dotfiles-backup/$STAMP (if any)"
     echo "    Command Deck: Super+Shift+F"
-    echo "    Last steps by hand: Settings > Overlays > Notifications > Deck,"
-    echo "    and Settings > App Launcher > Deck"
+    echo "    If you skipped the rice: pick Deck in Settings > Overlays > Notifications"
+    echo "    and in Settings > App Launcher"
 }
 
 case "${1:-}" in

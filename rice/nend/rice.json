@@ -11,7 +11,6 @@
   "assets": {
     "wallpaper": "wall.png",
     "cursor": "catppuccin-mocha-dark-cursors",
-    "fastfetch": "emblem.png",
     "fastfetchStyle": "fastfetch.jsonc",
     "lock": "rainy-street"
   },
@@ -184,7 +183,7 @@
       "sectionOrder": [],
       "showGreeting": false,
       "showWeather": false,
-      "variant": "okshell"
+      "variant": "deck"
     },
     "matugen": {
       "contrast": 0,
@@ -384,6 +383,9 @@
       },
       "deckFrost": 0.45,
       "deckFrostEnabled": true,
+      "designs": {
+        "notification": "deck"
+      },
       "dock": {
         "autohide": true,
         "edge": "bottom",
@@ -3092,14 +3094,14 @@
         "audioBoost": true,
         "barAnim": 0,
         "barAutoHide": false,
-        "barBorderEnabled": false,
+        "barBorderEnabled": true,
         "barColor": "accent",
-        "barCornerRadius": 0,
-        "barFrostEnabled": false,
+        "barCornerRadius": 14,
+        "barFrostEnabled": true,
         "barGapBottom": 0,
-        "barGapLeft": 0,
-        "barGapRight": 0,
-        "barGapTop": 0,
+        "barGapLeft": 12,
+        "barGapRight": 12,
+        "barGapTop": 8,
         "barPosition": "top",
         "barScale": 1,
         "barSeps": [
@@ -3109,8 +3111,8 @@
           "G3",
           "G12"
         ],
-        "barShadowEnabled": false,
-        "barShellStyle": "full",
+        "barShadowEnabled": true,
+        "barShellStyle": "islands",
         "barTemperatureSource": "cpu",
         "iconOnlyGids": [
           "G13"
@@ -3413,7 +3415,7 @@
           "tiltX": 0,
           "tiltY": 0,
           "w": 1,
-          "x": 0.08000000000000002,
+          "x": 0.08000000000000007,
           "y": 0.648
         }
       ],

@@ -107,6 +107,9 @@
   },
   "deckFrost": 0.45,
   "deckFrostEnabled": true,
+  "designs": {
+    "notification": "deck"
+  },
   "dock": {
     "autohide": true,
     "edge": "bottom",
@@ -2815,14 +2818,14 @@
     "audioBoost": true,
     "barAnim": 0,
     "barAutoHide": false,
-    "barBorderEnabled": false,
+    "barBorderEnabled": true,
     "barColor": "accent",
-    "barCornerRadius": 0,
-    "barFrostEnabled": false,
+    "barCornerRadius": 14,
+    "barFrostEnabled": true,
     "barGapBottom": 0,
-    "barGapLeft": 0,
-    "barGapRight": 0,
-    "barGapTop": 0,
+    "barGapLeft": 12,
+    "barGapRight": 12,
+    "barGapTop": 8,
     "barPosition": "top",
     "barScale": 1,
     "barSeps": [
@@ -2832,8 +2835,8 @@
       "G3",
       "G12"
     ],
-    "barShadowEnabled": false,
-    "barShellStyle": "full",
+    "barShadowEnabled": true,
+    "barShellStyle": "islands",
     "barTemperatureSource": "cpu",
     "iconOnlyGids": [
       "G13"
