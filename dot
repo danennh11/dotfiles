@@ -166,11 +166,13 @@ cmd_install() {
         warn "no rice/$RICE_NAME in repo yet; run ./dot rice on the source machine"
     fi
 
-    say "6/8 Deck notification card (from the mini catalogue in ryostore/)"
+    say "6/8 Deck notification card and launcher (from the mini catalogue in ryostore/)"
     # RYOSTORE_BASE points the Store at this repo for this one install only;
     # the Store keeps tracking the official catalogue afterwards.
     run env RYOSTORE_BASE="file://$REPO/ryostore" ryostore install notifications deck
-    echo "    Pick it in Settings > Overlays > Notifications (Ryoku has no command for this)."
+    run env RYOSTORE_BASE="file://$REPO/ryostore" ryostore install launchers deck
+    echo "    Pick them in Settings > Overlays > Notifications and Settings > App Launcher"
+    echo "    (Ryoku has no command for either)."
 
     say "7/8 Spotify colours (Spicetify + Ryoku palette bridge, optional)"
     if command -v spicetify >/dev/null && command -v spotify-launcher >/dev/null; then
@@ -198,7 +200,8 @@ cmd_install() {
 
     say "done. Backups of replaced files: ~/.dotfiles-backup/$STAMP (if any)"
     echo "    Command Deck: Super+Shift+F"
-    echo "    Last step by hand: Settings > Overlays > Notifications > Deck"
+    echo "    Last steps by hand: Settings > Overlays > Notifications > Deck,"
+    echo "    and Settings > App Launcher > Deck"
 }
 
 case "${1:-}" in

@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "launchers": [
+    {
+      "id": "deck",
+      "name": "Deck",
+      "version": "1.0.3",
+      "path": "launchers/deck",
+      "author": "danennh11",
+      "upstream": "https://github.com/danennh11/dotfiles",
+      "summary": "Terminal-pane launcher with a λ prompt",
+      "description": "Super+Space opens a small terminal pane: a dark-blue pill names it, you type after a λ with an fzf-style match count at the end of the line, and results are rows you walk with the arrows or vim keys (Ctrl+J/K), open with Enter or Alt+1..9. Pinned apps come first, apps opened this session rise next, and every colour comes from the live palette.",
+      "tags": [
+        "terminal",
+        "mono",
+        "prompt",
+        "keyboard"
+      ],
+      "accent": "#98ccf9",
+      "surface": "#101418",
+      "preview": "assets/preview.webp",
+      "screenshots": [],
+      "manifest": "manifest.json",
+      "manifestSha256": "80383a7b7c4c35ffce00d96b3f2e1b8a0e137605d86d6153fab3b84d5d5ee2ab",
+      "license": "MIT",
+      "lastUpdated": "2026-11-26",
+      "official": false
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "schema": 1,
+  "id": "deck",
+  "category": "launchers",
+  "version": "1.0.3",
+  "destination": "ryoku/launchers/deck",
+  "files": [
+    {
+      "source": "LICENSE",
+      "destination": "LICENSE",
+      "sha256": "db1357a2aaed4b62d8f554366d34879d2226b7f07200e9291740ff2aec8bb3f3",
+      "mode": "0644",
+      "size": 1066,
+      "install": true
+    },
+    {
+      "source": "Main.qml",
+      "destination": "Main.qml",
+      "sha256": "7e725dd8afffa79f4d9c413d0809827a76a2df74ff791776f3108fbde1659901",
+      "mode": "0644",
+      "size": 19366,
+      "install": true
+    },
+    {
+      "source": "Preview.qml",
+      "destination": "Preview.qml",
+      "sha256": "b4384500a7cc0d5fefdf41acc2ca5a4e6c79af11823be6d2c16cc463a4a80ab3",
+      "mode": "0644",
+      "size": 4945,
+      "install": true
+    },
+    {
+      "source": "README.md",
+      "destination": "README.md",
+      "sha256": "3362eae37d4ab442b1544f33bc0c7b1c2523c41da918cbd84d16f97bcaf8aef7",
+      "mode": "0644",
+      "size": 872,
+      "install": true
+    },
+    {
+      "source": "assets/preview.webp",
+      "destination": "assets/preview.webp",
+      "sha256": "291bd0fdb712dc25e4cc823431249b5cd76d643ffdadd19367ea3db9c154a4c9",
+      "mode": "0644",
+      "size": 43878,
+      "install": false
+    },
+    {
+      "source": "lib/match.js",
+      "destination": "lib/match.js",
+      "sha256": "a7600102e4f4f869560e12e3da34ed969dadceec5b3f3dd669a3917635010568",
+      "mode": "0644",
+      "size": 3766,
+      "install": true
+    },
+    {
+      "source": "settings.json",
+      "destination": "settings.json",
+      "sha256": "4d0863744fff4ac6d2385c641ec1542059bd32dce09fdf289841104962001e27",
+      "mode": "0644",
+      "size": 51,
+      "install": true
+    }
+  ],
+  "license": "MIT"
+}

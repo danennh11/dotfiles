@@ -55,6 +55,17 @@ notifications, and a hairline that drains while the popup waits. All colours
 come from the live palette. It is packaged as a RyoStore product in
 `ryostore/notifications/deck`.
 
+### Deck launcher
+
+![Deck launcher](ryostore/launchers/deck/assets/preview.webp)
+
+`Super + Space` opens a small terminal pane instead of an app grid: you type
+after a `λ`, an fzf-style `matches/total` count sits at the end of the line,
+and the selected result turns into the same dark-blue pill as the prompt.
+`Ctrl + J/K` move, `Enter` opens, `Alt + 1…9` opens the Nth row, `Esc`
+closes. Pinned apps come first and apps you opened this session rise next.
+Packaged as a RyoStore launcher in `ryostore/launchers/deck`.
+
 ### Zed
 
 Ryoku's wallpaper-coloured Zed theme (Matugen Dark), forked so the window is
@@ -122,15 +133,15 @@ cd ~/dotfiles
 3. copies the Ryoku overlay files and runs `ryoku materialize`
 4. sets the starship pill layout with wallpaper colours
 5. imports the `nend` rice and asks before applying it
-6. installs the Deck notification card from `ryostore/`
+6. installs the Deck notification card and launcher from `ryostore/`
 7. asks to patch Spotify with Spicetify and Ryoku's palette bridge
 8. reloads Hyprland
 
 After a Spotify update, run `spicetify backup apply` again; the update
 replaces the patched files.
 
-One step stays manual because Ryoku has no command for it: pick **Deck** in
-Settings › Overlays › Notifications.
+Two steps stay manual because Ryoku has no command for them: pick **Deck** in
+Settings › Overlays › Notifications and in Settings › App Launcher.
 
 `user.lua` also opens Brave, ZapFast and Vesktop on login. Remove those lines
 if you don't use them.
@@ -165,7 +176,7 @@ home/               mirror of $HOME
   .config/qs-calendar/             calendar / media panels
   .local/bin/                      ryoku-deck, theme generator, calendar-panel, ryoku-spotify
 rice/nend/          the Ryoku rice
-ryostore/           mini RyoStore catalogue holding the Deck notification card
+ryostore/           mini RyoStore catalogue: Deck notification card and launcher
 scripts/            scrub-rice.py (strips IP/location from the rice)
 assets/             screenshots
 ```
