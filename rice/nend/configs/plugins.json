@@ -1,6 +1,6 @@
 {
   "launchpad": {
-    "enabled": true,
+    "enabled": false,
     "host": "topbarGlyph",
     "settings": {
       "apps": "",
