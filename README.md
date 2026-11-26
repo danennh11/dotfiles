@@ -55,6 +55,13 @@ notifications, and a hairline that drains while the popup waits. All colours
 come from the live palette. It is packaged as a RyoStore product in
 `ryostore/notifications/deck`.
 
+### Zed
+
+Ryoku's wallpaper-coloured Zed theme (Matugen Dark), forked so the window is
+translucent with Hyprland's blur behind it and selections, the active tab and
+search matches use the same dark blue as the prompt pill. Font and every other
+Zed setting are untouched.
+
 ### Panels and keybinds
 
 | Key | Action |
