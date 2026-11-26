@@ -1,0 +1,37 @@
+{
+  "components": {
+    "wallpaperSelector": {
+      "displayMode": "wall",
+      "gridLayout": "uniform",
+      "handMove": "cycle",
+      "hexScrollStep": 1,
+      "lastAppliedKey": "wallhaven-j3djy5",
+      "startPosition": "applied"
+    }
+  },
+  "display": {
+    "fillModes": {
+      "eDP-1": "fill"
+    }
+  },
+  "features": {
+    "matugen": true,
+    "steam": false,
+    "wallhaven": true
+  },
+  "filterBar": {
+    "last": {
+      "favourites": false
+    }
+  },
+  "launch": {
+    "animation": "rise"
+  },
+  "matugen": {
+    "mode": "dark"
+  },
+  "transition": {
+    "enabled": false
+  },
+  "wallpaperMute": true
+}

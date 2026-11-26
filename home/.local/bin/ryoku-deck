@@ -1,0 +1,27 @@
+#!/bin/sh
+# Command Deck: fastfetch | btop over a cava strip, in a dedicated tmux server
+# (socket "deck"), shown in a floating kitty window (class ryoku-deck).
+# The session survives closing the window; pressing Super+Shift+F re-attaches it.
+CONF="$HOME/.config/tmux/deck.conf"
+T() { tmux -L deck -f "$CONF" "$@"; }
+"$HOME/.local/bin/ryoku-deck-btop-theme" 2>/dev/null
+LOGIN_SHELL="$(getent passwd "$(id -un)" | cut -d: -f7)"
+
+if ! T has-session -t deck 2>/dev/null; then
+    # fastfetch waits a moment so it draws at the final pane size, after kitty attaches
+    T new-session -d -s deck -n deck -x 180 -y 50 \
+        "sleep 0.8; clear; exec $LOGIN_SHELL -C 'fastfetch -c ~/.config/fastfetch/deck.jsonc'"
+    T split-window -v -l 28% -t deck:1.1 cava
+    T split-window -h -l 55% -t deck:1.1 "exec btop -c '$HOME/.config/btop/deck.conf' --themes-dir '$HOME/.config/btop/themes'"
+    T select-pane -t deck:1.1 -T fetch
+    T select-pane -t deck:1.2 -T stats
+    T select-pane -t deck:1.3 -T cava
+    T select-pane -t deck:1.1
+fi
+
+# already open? focus it instead of opening a second window
+if pgrep -f 'kitty .*--class ryoku-deck' >/dev/null 2>&1; then
+    hyprctl dispatch focuswindow 'class:^(ryoku-deck)$' >/dev/null 2>&1; exit 0
+fi
+exec kitty -o font_size=10.5 --class ryoku-deck --title "Command Deck" \
+    tmux -L deck -f "$CONF" attach -t deck

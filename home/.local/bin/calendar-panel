@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Toggle the qs-calendar panels. Starts qs-calendar if it is not running.
+# Usage: calendar-panel [calendar|media] [toggle|open|close]
+#        calendar-panel [toggle|open|close]          (calendar)
+dir="$HOME/.config/qs-calendar"
+target=calendar
+case "${1:-}" in
+    calendar|media) target="$1"; shift ;;
+esac
+action="${1:-toggle}"
+
+if ! qs ipc -p "$dir" call "$target" "$action" 2>/dev/null; then
+    qs -p "$dir" -d >/dev/null 2>&1
+    for _ in $(seq 20); do
+        sleep 0.1
+        qs ipc -p "$dir" call "$target" "$action" 2>/dev/null && exit 0
+    done
+    notify-send "calendar-panel" "qs-calendar did not start; run: qs -p $dir"
+    exit 1
+fi

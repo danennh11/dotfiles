@@ -1,0 +1,35 @@
+// Command Deck fastfetch (compact, for the fetch pane of the tmux deck).
+// Logo: ASCII art (braille 28x16, scaled down from deck-logo-portrait-large.txt; the cat logo is deck-logo-cat.txt) from ~/.config/fastfetch/deck-logo.txt, drawn in the primary slot.
+// Colours use ANSI slots so they follow the matugen kitty theme automatically.
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "logo": {
+    "type": "file",
+    "source": "~/.config/fastfetch/deck-logo.txt",
+    "color": { "1": "magenta" },
+    "padding": { "left": 1, "right": 2, "top": 0 }
+  },
+  "display": {
+    "separator": "  ",
+    "color": { "keys": "magenta", "title": "magenta" },
+    "key": { "width": 9 },
+    "size": { "maxPrefix": "GB", "ndigits": 1 }
+  },
+  "modules": [
+    "title",
+    "separator",
+    { "type": "os", "key": "os", "format": "{pretty-name}" },
+    { "type": "host", "key": "host", "format": "{name}" },
+    { "type": "kernel", "key": "kernel", "format": "{release}" },
+    { "type": "uptime", "key": "uptime", "format": "{days}d {hours}h {minutes}m" },
+    { "type": "packages", "key": "pkgs", "format": "{all}" },
+    { "type": "wm", "key": "wm", "format": "{pretty-name}" },
+    { "type": "terminal", "key": "term", "format": "{pretty-name}" },
+    "break",
+    { "type": "cpu", "key": "cpu", "format": "{name}" },
+    { "type": "gpu", "key": "gpu", "format": "{name}" },
+    { "type": "display", "key": "display", "format": "{width}x{height} @ {refresh-rate}Hz" },
+    "break",
+    { "type": "colors", "symbol": "circle" }
+  ]
+}

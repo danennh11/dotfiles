@@ -1,0 +1,16 @@
+{
+  "launchpad": {
+    "enabled": true,
+    "host": "topbarGlyph",
+    "settings": {
+      "apps": "",
+      "columns": 5,
+      "commands": "Lock=loginctl lock-session ; Suspend=systemctl suspend",
+      "sectionOrder": "widgets pinned commands",
+      "showCommands": true,
+      "showPinned": true,
+      "showWidgets": true,
+      "widgetList": "calendar music notes"
+    }
+  }
+}

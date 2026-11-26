@@ -25,6 +25,35 @@
 
 -- maximize dengan Super + D
 hl.bind("SUPER + D", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))
-
 -- tanpa gap saat maximize
 hl.workspace_rule({ workspace = "f[1]", gaps_out = 0, gaps_in = 0 })
+
+-- Buka panel calendar + todo (~/.config/qs-calendar) dengan Super + C
+-- Dulu: hl.bind("SUPER + C", hl.dsp.exec_cmd("vesktop"))
+hl.bind("SUPER + C", hl.dsp.exec_cmd(os.getenv("HOME") .. "/.local/bin/calendar-panel"))
+-- Buka panel Now Playing + equalizer dengan Super + X
+hl.bind("SUPER + X", hl.dsp.exec_cmd(os.getenv("HOME") .. "/.local/bin/calendar-panel media"))
+
+-- Buka ZapFast (WhatsApp) dengan Super + Z; tekan lagi untuk fokus window yang sudah jalan
+hl.bind("SUPER + Z", hl.dsp.exec_cmd("zapfast"))
+
+-- Startup layout: open these apps on login, each on its own workspace.
+-- Runs only once per login (not on config reload). "silent" keeps you on
+-- workspace 1 instead of jumping to each app as it opens.
+hl.on("hyprland.start", function()
+    hl.exec_cmd("brave",   { workspace = "3 silent" })
+    hl.exec_cmd("zapfast", { workspace = "2 silent" })
+    hl.exec_cmd("vesktop", { workspace = "1 silent" })
+    -- panel calendar + todo (Super + C), jalan di background
+    hl.exec_cmd("qs -p " .. os.getenv("HOME") .. "/.config/qs-calendar -d")
+end)
+
+-- Command Deck (fastfetch + btop + cava) dengan Super + Shift + F
+hl.bind("SUPER + SHIFT + F", hl.dsp.exec_cmd(os.getenv("HOME") .. "/.local/bin/ryoku-deck"))
+hl.window_rule({
+    name   = "float-ryoku-deck",
+    match  = { class = "ryoku-deck" },
+    float  = true,
+    size   = { "min(1500, monitor_w * 0.92)", "min(880, monitor_h * 0.88)" },
+    center = true,
+})

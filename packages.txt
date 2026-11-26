@@ -1,0 +1,7 @@
+# Packages the Command Deck and prompt need (Ryoku ships the rest).
+tmux
+chafa
+btop
+cava
+fastfetch
+starship

@@ -1,0 +1,58 @@
+#!/usr/bin/env python3
+"""Render a blue-only btop theme for the Command Deck from the live matugen palette.
+
+Reads ~/.cache/ryoku/colors.json (written by Ryoku on every wallpaper/theme change)
+and writes ~/.config/btop/themes/deck-blue.theme. Called by ~/.local/bin/ryoku-deck
+on every launch, so the deck follows the desktop palette.
+"""
+import json
+import os
+
+home = os.path.expanduser("~")
+src = os.path.join(home, ".cache/ryoku/colors.json")
+dst = os.path.join(home, ".config/btop/themes/deck-blue.theme")
+
+# Fallback: the dark-blue scheme current when this was written.
+c = {
+    "surface": "#101418", "onSurface": "#e0e2e8", "onSurfaceVariant": "#c2c7ce",
+    "outline": "#8c9198", "outlineVariant": "#42474e",
+    "primary": "#98ccf9", "primaryContainer": "#054b71", "onPrimaryContainer": "#cce5ff",
+    "inversePrimary": "#2b638b", "secondary": "#b8c8d9", "secondaryContainer": "#394857",
+}
+try:
+    with open(src) as f:
+        data = json.load(f)
+    data = data.get("colors", data)
+    c.update({k: v for k, v in data.items() if k in c and isinstance(v, str)})
+except (OSError, ValueError):
+    pass
+
+deep, mid, hi = c["inversePrimary"], c["primary"], c["onPrimaryContainer"]
+theme = {
+    "main_bg": c["surface"],
+    "main_fg": c["onSurface"],
+    "title": hi,
+    "hi_fg": mid,
+    "selected_bg": c["primaryContainer"],
+    "selected_fg": hi,
+    "inactive_fg": c["outline"],
+    "graph_text": c["onSurfaceVariant"],
+    "meter_bg": c["outlineVariant"],
+    "proc_misc": mid,
+    "cpu_box": deep,
+    "mem_box": deep,
+    "net_box": deep,
+    "proc_box": deep,
+    "div_line": c["outlineVariant"],
+}
+# Every gradient runs deep blue -> primary -> pale blue.
+for g in ("temp", "cpu", "free", "cached", "available", "used",
+          "download", "upload", "process"):
+    theme[f"{g}_start"], theme[f"{g}_mid"], theme[f"{g}_end"] = deep, mid, hi
+
+os.makedirs(os.path.dirname(dst), exist_ok=True)
+with open(dst, "w") as f:
+    f.write("# Command Deck btop theme, rendered from the matugen palette by\n")
+    f.write("# ~/.local/bin/ryoku-deck-btop-theme. Regenerated on every deck launch.\n")
+    for k, v in theme.items():
+        f.write(f'theme[{k}]="{v}"\n')

@@ -1,0 +1,24 @@
+# Paths under $HOME that live in home/ and are symlinked into place.
+# Add more with: ./dot adopt <path>
+# Lines starting with "copy " are copied instead of linked: Ryoku's overlay
+# (user_edits) ignores symlinks. After editing one, run ./dot sync.
+.config/hypr/user.lua
+.config/qs-calendar
+.config/tmux/deck.conf
+.config/fastfetch/deck.jsonc
+.config/fastfetch/deck-logo.txt
+.config/fastfetch/deck-logo-cat.txt
+.config/fastfetch/deck-logo-portrait-large.txt
+.config/btop/deck.conf
+.config/cava
+.config/kitty/user.conf
+.config/fish/functions/cektweak.fish
+.local/bin/calendar-panel
+.local/bin/ryoku-deck
+.local/bin/ryoku-deck-btop-theme
+copy .config/ryoku/user_edits/fish/config.fish
+copy .config/ryoku/user_edits/hypr/modules/binds.lua
+copy .config/ryoku/user_edits/hypr/modules/window_rules.lua
+copy .config/ryoku/user_edits/hypr/scripts/ryoku-workspace
+copy .config/ryoku/user_edits/qt6ct/qt6ct.conf
+copy .config/ryoku/user_edits/matugen/templates/starship-colors.toml

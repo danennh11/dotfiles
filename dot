@@ -1,0 +1,184 @@
+#!/usr/bin/env bash
+# dot: nend's Ryoku dotfiles.
+#
+#   ./dot install [--dry-run]   set up a fresh Ryoku machine from this repo
+#   ./dot status                show every managed path and whether it is linked
+#   ./dot adopt <path>...       move a file/dir from $HOME into the repo and link it back
+#   ./dot sync                  save edits to copy-mode files (the Ryoku overlay) into the repo
+#   ./dot rice                  re-capture this machine's Ryoku look into rice/
+#
+# Files listed in links.txt live in home/ (a mirror of $HOME) and are symlinked
+# into place, so editing them anywhere edits the repo: just commit and push.
+# Entries marked "copy" (the Ryoku user_edits overlay, which skips symlinks) are
+# copied instead; after editing one, run ./dot sync before committing.
+# The Ryoku look (bar, theme, launcher, window decoration, wallpaper) travels as
+# a Ryoku rice in rice/, applied with Ryoku's own tools.
+set -euo pipefail
+
+REPO="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"
+HOME_MIRROR="$REPO/home"
+LINKS="$REPO/links.txt"
+RICE_NAME="nend"
+DRY=0
+
+c_ok=$'\e[34m'; c_warn=$'\e[33m'; c_err=$'\e[31m'; c_dim=$'\e[2m'; c_off=$'\e[0m'
+say()  { printf '%s==>%s %s\n' "$c_ok" "$c_off" "$*"; }
+warn() { printf '%s!!%s  %s\n' "$c_warn" "$c_off" "$*"; }
+die()  { printf '%sxx%s  %s\n' "$c_err" "$c_off" "$*" >&2; exit 1; }
+run()  { if [ "$DRY" = 1 ]; then printf '%s   would run:%s %s\n' "$c_dim" "$c_off" "$*"; else "$@"; fi; }
+ask()  { [ "$DRY" = 1 ] && return 0; read -r -p "    $1 [Y/n] " a; [ -z "$a" ] || [[ "$a" =~ ^[Yy] ]]; }
+
+# Prints "<mode> <path>" per entry; mode is "link" or "copy".
+managed() {
+    grep -vE '^\s*(#|$)' "$LINKS" | while read -r a b; do
+        if [ "$a" = copy ]; then echo "copy $b"; else echo "link $a"; fi
+    done
+}
+
+backup() {
+    local rel="$1" bak="$HOME/.dotfiles-backup/$STAMP/$1"
+    printf '   backup  %s -> %s\n' "$rel" "${bak#"$HOME"/}"
+    run mkdir -p "$(dirname "$bak")"
+    run mv "$HOME/$rel" "$bak"
+}
+
+copy_one() {
+    local rel="$1" src="$HOME_MIRROR/$1" dst="$HOME/$1"
+    [ -e "$src" ] || { warn "missing in repo, skipped: $rel"; return; }
+    if [ -f "$dst" ] && [ ! -L "$dst" ] && cmp -s "$src" "$dst"; then
+        printf '%s   ok%s      %s\n' "$c_dim" "$c_off" "$rel"; return
+    fi
+    if [ -e "$dst" ] || [ -L "$dst" ]; then backup "$rel"; fi
+    printf '   copy    %s\n' "$rel"
+    run mkdir -p "$(dirname "$dst")"
+    run cp -p "$src" "$dst"
+}
+
+link_one() {
+    local rel="$1" src="$HOME_MIRROR/$1" dst="$HOME/$1"
+    [ -e "$src" ] || { warn "missing in repo, skipped: $rel"; return; }
+    if [ -L "$dst" ] && [ "$(readlink -f "$dst")" = "$(readlink -f "$src")" ]; then
+        printf '%s   ok%s      %s\n' "$c_dim" "$c_off" "$rel"; return
+    fi
+    if [ -e "$dst" ] || [ -L "$dst" ]; then backup "$rel"; fi
+    printf '   link    %s\n' "$rel"
+    run mkdir -p "$(dirname "$dst")"
+    run ln -s "$src" "$dst"
+}
+
+cmd_status() {
+    local mode rel src dst
+    while read -r mode rel; do
+        src="$HOME_MIRROR/$rel"; dst="$HOME/$rel"
+        if [ ! -e "$src" ]; then printf '%smissing%s  %s (not in repo)\n' "$c_err" "$c_off" "$rel"
+        elif [ "$mode" = copy ]; then
+            if [ ! -e "$dst" ]; then printf '%sabsent%s   %s\n' "$c_dim" "$c_off" "$rel"
+            elif cmp -s "$src" "$dst"; then printf '%scopied%s   %s\n' "$c_ok" "$c_off" "$rel"
+            else printf '%schanged%s  %s (run ./dot sync to save it to the repo)\n' "$c_warn" "$c_off" "$rel"; fi
+        elif [ -L "$dst" ] && [ "$(readlink -f "$dst")" = "$(readlink -f "$src")" ]; then printf '%slinked%s   %s\n' "$c_ok" "$c_off" "$rel"
+        elif [ -e "$dst" ]; then printf '%sdiffers%s  %s (a real file is in the way)\n' "$c_warn" "$c_off" "$rel"
+        else printf '%sabsent%s   %s\n' "$c_dim" "$c_off" "$rel"; fi
+    done < <(managed)
+}
+
+# Copy-mode files are edited in $HOME; bring those edits back into the repo.
+cmd_sync() {
+    local mode rel n=0
+    while read -r mode rel; do
+        [ "$mode" = copy ] || continue
+        [ -f "$HOME/$rel" ] || continue
+        if ! cmp -s "$HOME/$rel" "$HOME_MIRROR/$rel"; then
+            mkdir -p "$(dirname "$HOME_MIRROR/$rel")"
+            cp -p "$HOME/$rel" "$HOME_MIRROR/$rel"
+            say "synced $rel"; n=$((n + 1))
+        fi
+    done < <(managed)
+    [ "$n" = 0 ] && say "nothing to sync"
+    return 0
+}
+
+cmd_adopt() {
+    [ $# -gt 0 ] || die "usage: ./dot adopt <path under \$HOME>..."
+    local p abs rel
+    for p in "$@"; do
+        abs="$(readlink -m "$p")"
+        case "$abs" in "$HOME"/*) ;; *) die "not under \$HOME: $p" ;; esac
+        rel="${abs#"$HOME"/}"
+        [ -L "$abs" ] && { warn "already a symlink, skipped: $rel"; continue; }
+        [ -e "$abs" ] || die "does not exist: $p"
+        [ -e "$HOME_MIRROR/$rel" ] && die "already in repo: $rel"
+        mkdir -p "$(dirname "$HOME_MIRROR/$rel")"
+        case "$rel" in
+            .config/ryoku/user_edits/*)
+                # Ryoku's overlay skips symlinks, so keep a real file there.
+                cp -pr "$abs" "$HOME_MIRROR/$rel"
+                echo "copy $rel" >> "$LINKS"
+                say "adopted $rel (copy mode: run ./dot sync after editing it)" ;;
+            *)
+                mv "$abs" "$HOME_MIRROR/$rel"
+                ln -s "$HOME_MIRROR/$rel" "$abs"
+                echo "$rel" >> "$LINKS"
+                say "adopted $rel" ;;
+        esac
+    done
+}
+
+cmd_rice() {
+    command -v ryoku-hub >/dev/null || die "ryoku-hub not found: is Ryoku installed?"
+    say "capturing this machine's look as rice '$RICE_NAME'"
+    ryoku-hub rice capture --force "$RICE_NAME"
+    rm -rf "$REPO/rice/$RICE_NAME"
+    mkdir -p "$REPO/rice"
+    ryoku-hub rice export "$RICE_NAME" "$REPO/rice"
+    say "removing personal data (IP geolocation, weather city) before it goes public"
+    python3 -I "$REPO/scripts/scrub-rice.py" "$REPO/rice/$RICE_NAME"
+    say "exported to rice/ (commit it to keep it)"
+}
+
+cmd_install() {
+    [ "${1:-}" = "--dry-run" ] && DRY=1
+    STAMP="$(date +%Y%m%d-%H%M%S)"
+    command -v ryoku >/dev/null || die "Ryoku is not installed. Install Ryoku first, then run this."
+
+    say "1/6 packages"
+    local pkgs; pkgs="$(grep -vE '^\s*(#|$)' "$REPO/packages.txt" | tr '\n' ' ')"
+    if ask "install with pacman: $pkgs?"; then run sudo pacman -S --needed $pkgs; fi
+
+    say "2/6 placing files from home/"
+    while read -r mode rel; do
+        if [ "$mode" = copy ]; then copy_one "$rel"; else link_one "$rel"; fi
+    done < <(managed)
+
+    say "3/6 applying the user_edits overlay"
+    run ryoku materialize
+
+    say "4/6 prompt (starship pill layout, wallpaper colours)"
+    run ryoku-hub starship set pill
+    run ryoku-hub starship palette wallpaper
+
+    say "5/6 Ryoku look (rice '$RICE_NAME')"
+    if [ -d "$REPO/rice/$RICE_NAME" ]; then
+        run ryoku-hub rice import "$REPO/rice/$RICE_NAME"
+        if ask "apply rice '$RICE_NAME' now (bar, theme, launcher, wallpaper)?"; then
+            run ryoku-hub rice apply "$RICE_NAME"
+        fi
+    else
+        warn "no rice/$RICE_NAME in repo yet; run ./dot rice on the source machine"
+    fi
+
+    say "6/6 reloading Hyprland"
+    if command -v luac >/dev/null; then run luac -p "$HOME/.config/hypr/user.lua"; fi
+    run ryoku wm act config.reload || true
+
+    say "done. Backups of replaced files: ~/.dotfiles-backup/$STAMP (if any)"
+    echo "    Command Deck: Super+Shift+F"
+}
+
+case "${1:-}" in
+    install) shift; cmd_install "$@" ;;
+    status)  cmd_status ;;
+    adopt)   shift; cmd_adopt "$@" ;;
+    sync)    cmd_sync ;;
+    rice)    cmd_rice ;;
+    *) sed -n '2,15p' "$0" | sed 's/^# \{0,1\}//'; exit 1 ;;
+esac

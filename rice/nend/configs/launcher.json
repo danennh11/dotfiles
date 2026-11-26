@@ -1,0 +1,20 @@
+{
+  "bgBlur": 0,
+  "columns": 8,
+  "heroPosX": 0.5,
+  "heroPosY": 0.5,
+  "heroStrength": 0.39659999999999995,
+  "hiddenApps": [],
+  "hiddenSections": [],
+  "horizonColor": "#ffc777",
+  "horizonMode": "auto",
+  "matWidth": 144,
+  "overlayOpacity": 0.94,
+  "pinnedApps": [],
+  "radius": 0,
+  "resultSettleMs": 360,
+  "sectionOrder": [],
+  "showGreeting": false,
+  "showWeather": false,
+  "variant": "okshell"
+}

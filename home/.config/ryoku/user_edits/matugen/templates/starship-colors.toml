@@ -1,0 +1,9 @@
+[palettes.wallpaper]
+# user fork: path pill on dark blue (primary container) instead of surface grey
+dir_bg = "{{colors.primary_container.default.hex}}"
+git_bg = "{{colors.secondary_container.default.hex}}"
+time_bg = "{{colors.tertiary_container.default.hex}}"
+dir_fg = "{{colors.on_primary_container.default.hex}}"
+git_fg = "{{colors.on_secondary_container.default.hex}}"
+time_fg = "{{colors.on_tertiary_container.default.hex}}"
+crimson = "{{colors.error.default.hex}}"
