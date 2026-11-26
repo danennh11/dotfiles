@@ -3105,7 +3105,6 @@
         "barPosition": "top",
         "barScale": 1,
         "barSeps": [
-          "G11",
           "G1",
           "G9",
           "G3",
