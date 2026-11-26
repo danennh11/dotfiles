@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "notifications": [
+    {
+      "id": "deck",
+      "name": "Deck",
+      "version": "1.0.0",
+      "path": "notifications/deck",
+      "author": "danennh11",
+      "upstream": "https://github.com/danennh11/dotfiles",
+      "summary": "Terminal-pane card with a λ prompt and a blue app pill",
+      "description": "Each notification arrives as a small terminal pane: the app name in a dark-blue pill like a prompt path, the summary after a λ, the body lined up beneath, outlined action tabs, a left rail that turns red for urgent ones and a hairline that drains while it waits. Every colour comes from the live palette.",
+      "tags": [
+        "terminal",
+        "mono",
+        "prompt"
+      ],
+      "accent": "#98ccf9",
+      "surface": "#101418",
+      "preview": "assets/preview.webp",
+      "screenshots": [],
+      "manifest": "manifest.json",
+      "manifestSha256": "39ed2495a97a82384bae3b501ed6c646bf23cb9a983c77592f3a5edc575c9506",
+      "license": "MIT",
+      "lastUpdated": "2026-11-26",
+      "official": false
+    }
+  ]
+}

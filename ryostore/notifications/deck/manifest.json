@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "id": "deck",
+  "category": "notifications",
+  "version": "1.0.0",
+  "destination": "ryoku/notifications/deck",
+  "files": [
+    {
+      "source": "Card.qml",
+      "destination": "Card.qml",
+      "sha256": "e04ea507cf22fcc86b08b83dcac7a1fa4a831844e4e2ef4482ca361c40a7cb62",
+      "mode": "0644",
+      "size": 13485,
+      "install": true
+    },
+    {
+      "source": "LICENSE",
+      "destination": "LICENSE",
+      "sha256": "db1357a2aaed4b62d8f554366d34879d2226b7f07200e9291740ff2aec8bb3f3",
+      "mode": "0644",
+      "size": 1066,
+      "install": true
+    },
+    {
+      "source": "README.md",
+      "destination": "README.md",
+      "sha256": "181fbc2663fa1a6e42901e2248f54df01188cd0319f8deb58815bf250f49de70",
+      "mode": "0644",
+      "size": 777,
+      "install": true
+    },
+    {
+      "source": "assets/preview.webp",
+      "destination": "assets/preview.webp",
+      "sha256": "4788e23a19d72fc7faaeb18f0bfa777802ce523f16e04e3c2b3a67d4200428a1",
+      "mode": "0644",
+      "size": 18786,
+      "install": false
+    }
+  ],
+  "license": "MIT"
+}

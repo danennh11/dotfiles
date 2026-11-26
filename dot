@@ -140,23 +140,23 @@ cmd_install() {
     STAMP="$(date +%Y%m%d-%H%M%S)"
     command -v ryoku >/dev/null || die "Ryoku is not installed. Install Ryoku first, then run this."
 
-    say "1/6 packages"
+    say "1/7 packages"
     local pkgs; pkgs="$(grep -vE '^\s*(#|$)' "$REPO/packages.txt" | tr '\n' ' ')"
     if ask "install with pacman: $pkgs?"; then run sudo pacman -S --needed $pkgs; fi
 
-    say "2/6 placing files from home/"
+    say "2/7 placing files from home/"
     while read -r mode rel; do
         if [ "$mode" = copy ]; then copy_one "$rel"; else link_one "$rel"; fi
     done < <(managed)
 
-    say "3/6 applying the user_edits overlay"
+    say "3/7 applying the user_edits overlay"
     run ryoku materialize
 
-    say "4/6 prompt (starship pill layout, wallpaper colours)"
+    say "4/7 prompt (starship pill layout, wallpaper colours)"
     run ryoku-hub starship set pill
     run ryoku-hub starship palette wallpaper
 
-    say "5/6 Ryoku look (rice '$RICE_NAME')"
+    say "5/7 Ryoku look (rice '$RICE_NAME')"
     if [ -d "$REPO/rice/$RICE_NAME" ]; then
         run ryoku-hub rice import "$REPO/rice/$RICE_NAME"
         if ask "apply rice '$RICE_NAME' now (bar, theme, launcher, wallpaper)?"; then
@@ -166,12 +166,19 @@ cmd_install() {
         warn "no rice/$RICE_NAME in repo yet; run ./dot rice on the source machine"
     fi
 
-    say "6/6 reloading Hyprland"
+    say "6/7 Deck notification card (from the mini catalogue in ryostore/)"
+    # RYOSTORE_BASE points the Store at this repo for this one install only;
+    # the Store keeps tracking the official catalogue afterwards.
+    run env RYOSTORE_BASE="file://$REPO/ryostore" ryostore install notifications deck
+    echo "    Pick it in Settings > Overlays > Notifications (Ryoku has no command for this)."
+
+    say "7/7 reloading Hyprland"
     if command -v luac >/dev/null; then run luac -p "$HOME/.config/hypr/user.lua"; fi
     run ryoku wm act config.reload || true
 
     say "done. Backups of replaced files: ~/.dotfiles-backup/$STAMP (if any)"
     echo "    Command Deck: Super+Shift+F"
+    echo "    Last step by hand: Settings > Overlays > Notifications > Deck"
 }
 
 case "${1:-}" in

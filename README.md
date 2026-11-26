@@ -41,6 +41,17 @@ and cava alive and `Super + Shift + F` reattaches instantly.
 Starship with Ryoku's pill layout: the path sits in a dark-blue pill so it
 never blends into what you type.
 
+### Deck notifications
+
+![Deck notification cards: normal, urgent, and with actions](ryostore/notifications/deck/assets/preview.webp)
+
+A custom Ryoku notification card in the same language as the prompt and the
+deck: the app name in a dark-blue pill, the summary after a `λ`, outlined
+action tabs like tmux pane titles, a left rail that turns red for urgent
+notifications, and a hairline that drains while the popup waits. All colours
+come from the live palette. It is packaged as a RyoStore product in
+`ryostore/notifications/deck`.
+
 ### Panels and keybinds
 
 | Key | Action |
@@ -92,7 +103,11 @@ cd ~/dotfiles
 3. copies the Ryoku overlay files and runs `ryoku materialize`
 4. sets the starship pill layout with wallpaper colours
 5. imports the `nend` rice and asks before applying it
-6. reloads Hyprland
+6. installs the Deck notification card from `ryostore/`
+7. reloads Hyprland
+
+One step stays manual because Ryoku has no command for it: pick **Deck** in
+Settings › Overlays › Notifications.
 
 `user.lua` also opens Brave, ZapFast and Vesktop on login. Remove those lines
 if you don't use them.
@@ -127,6 +142,7 @@ home/               mirror of $HOME
   .config/qs-calendar/             calendar / media panels
   .local/bin/                      ryoku-deck, theme generator, calendar-panel
 rice/nend/          the Ryoku rice
+ryostore/           mini RyoStore catalogue holding the Deck notification card
 scripts/            scrub-rice.py (strips IP/location from the rice)
 assets/             screenshots
 ```
