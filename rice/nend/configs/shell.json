@@ -2836,7 +2836,7 @@
       "G12"
     ],
     "barShadowEnabled": true,
-    "barShellStyle": "islands",
+    "barShellStyle": "full",
     "barTemperatureSource": "cpu",
     "iconOnlyGids": [
       "G13"

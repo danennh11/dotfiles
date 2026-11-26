@@ -94,9 +94,9 @@ from it would fight the palette, so I skip those.
 
 ### Bar
 
-Ryoku's QS Bar, floated: split into pill islands with a gap from the screen
-edge, rounded corners, frosted blur, a thin border and a soft shadow. Same
-widgets as stock. It travels inside the rice.
+Ryoku's QS Bar, floated: one full-width bar held off the screen edge, with
+rounded corners, frosted blur, a thin border and a soft shadow. Same widgets
+as stock. It travels inside the rice.
 
 ### The look
 
