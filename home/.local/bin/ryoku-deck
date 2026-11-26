@@ -21,7 +21,8 @@ fi
 
 # already open? focus it instead of opening a second window
 if pgrep -f 'kitty .*--class ryoku-deck' >/dev/null 2>&1; then
-    hyprctl dispatch focuswindow 'class:^(ryoku-deck)$' >/dev/null 2>&1; exit 0
+    # Hyprland here takes Lua dispatchers
+    hyprctl dispatch 'hl.dsp.focus({ window = "class:^(ryoku-deck)$" })' >/dev/null 2>&1; exit 0
 fi
 exec kitty -o font_size=10.5 --class ryoku-deck --title "Command Deck" \
     tmux -L deck -f "$CONF" attach -t deck
