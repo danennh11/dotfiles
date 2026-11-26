@@ -2818,10 +2818,10 @@
     "audioBoost": true,
     "barAnim": 0,
     "barAutoHide": false,
-    "barBorderEnabled": true,
+    "barBorderEnabled": false,
     "barColor": "accent",
     "barCornerRadius": 0,
-    "barFrostEnabled": true,
+    "barFrostEnabled": false,
     "barGapBottom": 0,
     "barGapLeft": 0,
     "barGapRight": 0,
@@ -2835,7 +2835,7 @@
       "G3",
       "G12"
     ],
-    "barShadowEnabled": true,
+    "barShadowEnabled": false,
     "barShellStyle": "full",
     "barTemperatureSource": "cpu",
     "iconOnlyGids": [
