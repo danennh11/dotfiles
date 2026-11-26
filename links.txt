@@ -6,6 +6,7 @@
 .config/qs-calendar
 .config/tmux/deck.conf
 .config/fastfetch/deck.jsonc
+.config/fastfetch/config.jsonc
 .config/fastfetch/deck-logo.txt
 .config/fastfetch/deck-logo-cat.txt
 .config/fastfetch/deck-logo-portrait-large.txt

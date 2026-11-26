@@ -25,6 +25,9 @@ A floating terminal dashboard built from three panes in one tmux session:
 | **stats** | btop (CPU + memory/disks only) with a theme generated from the live palette |
 | **cava** | full-width audio visualiser along the bottom |
 
+Plain `fastfetch` in any terminal uses the same config (`config.jsonc` links to
+`deck.jsonc`), so it looks the same outside the deck too.
+
 It runs on its own tmux server, so closing the window (`Alt + Q`) keeps btop
 and cava alive and `Super + Shift + F` reattaches instantly.
 
