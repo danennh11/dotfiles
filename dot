@@ -179,6 +179,13 @@ cmd_install() {
             run spotify-launcher --no-exec
             run spicetify backup || true
             run ryoku-hub palette-bridge service enable
+            # Marketplace (Ryoku's build, from the spicetify-marketplace package)
+            if [ -d /usr/share/ryoku/spicetify/marketplace ]; then
+                run mkdir -p "$HOME/.config/spicetify/CustomApps"
+                run cp -r /usr/share/ryoku/spicetify/marketplace "$HOME/.config/spicetify/CustomApps/"
+                run spicetify config custom_apps marketplace
+            fi
+            # installs the live-palette extension and runs spicetify apply
             run ryoku-hub palette-bridge integration install spotify /usr/share/ryoku/palette-bridge
         fi
     else

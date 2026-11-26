@@ -66,7 +66,9 @@ Zed setting are untouched.
 
 Spicetify with Ryoku's palette bridge: Spotify's own colour variables are
 repainted live from the wallpaper palette, so it sits in the same navy and
-blue as everything else, with no Spicetify theme on top.
+blue as everything else, with no Spicetify theme on top. Marketplace (the
+cart icon, top left) is installed for extensions and CSS snippets; a theme
+from it would fight the palette, so I skip those.
 
 ### Panels and keybinds
 
